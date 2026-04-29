@@ -1,0 +1,55 @@
+@model List<PadariaWeb.Models.Produto>
+
+@{
+    ViewData["Title"] = "Padaria Delícia - Pães Artesanais";
+}
+
+<div class="hero-section text-center py-5 mb-5" style="background: linear-gradient(135deg, #f5a623 0%, #f7d794 100%);">
+    <div class="container">
+        <h1 class="display-3 fw-bold text-white">Padaria Delícia</h1>
+        <p class="lead text-white">Pães artesanais feitos com amor e ingredientes selecionados</p>
+        <a href="/Produtos" class="btn btn-light btn-lg mt-3">Ver Cardápio</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="text-center mb-5">Produtos em Destaque</h2>
+    <div class="row">
+        @foreach (var produto in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@produto.Nome</h5>
+                        <p class="card-text">@produto.Descricao</p>
+                        <p class="h4 text-primary">@produto.Preco.ToString("C")</p>
+                        <a href="/Produtos/Detalhes/@produto.Id" class="btn btn-outline-primary">Ver Detalhes</a>
+                        <a href="/Carrinho/Adicionar/@produto.Id" class="btn btn-primary">Adicionar ao Carrinho</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="features-section py-5 mt-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="fas fa-bread-slice fa-3x text-primary mb-3"></i>
+                <h4>Pães Frescos Diariamente</h4>
+                <p>Produzidos com amor todos os dias</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-truck fa-3x text-primary mb-3"></i>
+                <h4>Entrega Rápida</h4>
+                <p>Receba em casa com agilidade</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-leaf fa-3x text-primary mb-3"></i>
+                <h4>Ingredientes Naturais</h4>
+                <p>Produtos sem conservantes</p>
+            </div>
+        </div>
+    </div>
+</div>
