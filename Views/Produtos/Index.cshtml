@@ -1,0 +1,62 @@
+@model List<PadariaWeb.Models.Produto>
+
+@{
+    ViewData["Title"] = "Nosso Cardápio";
+}
+
+<div class="container">
+    <h1 class="text-center mb-5">Nosso Cardápio</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="get" class="d-flex">
+                <input type="text" name="busca" class="form-control me-2" placeholder="Buscar produtos..." value="@Context.Request.Query["busca"]">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form method="get" class="d-flex">
+                <select name="categoria" class="form-select me-2" onchange="this.form.submit()">
+                    <option value="Todos">Todas Categorias</option>
+                    @foreach (var categoria in ViewBag.Categorias)
+                    {
+                        <option value="@categoria" selected="@(Context.Request.Query["categoria"] == categoria)">@categoria</option>
+                    }
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    Nenhum produto encontrado.
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var produto in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@produto.Nome</h5>
+                            <p class="card-text">@produto.Descricao</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 text-primary">@produto.Preco.ToString("C")</span>
+                                <span class="badge bg-secondary">@produto.Categoria</span>
+                            </div>
+                            <div class="mt-3">
+                                <a href="/Produtos/Detalhes/@produto.Id" class="btn btn-outline-primary btn-sm">Detalhes</a>
+                                <a href="/Carrinho/Adicionar/@produto.Id" class="btn btn-primary btn-sm">Comprar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
